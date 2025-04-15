@@ -1,0 +1,52 @@
+<body>
+    <textarea id="textInput" rows="20" cols="100" placeholder="Enter text here (more than 10,000 words)..."></textarea>
+    <br>
+    <button onclick="analyzeText()">Analyze</button>
+    <div id="results">
+    </div>
+    <script>
+        function analyzeText() {
+            const text = document.getElementById('textInput').value;
+
+            const letterCount = (text.match(/[a-zA-Z]/g) || []).length;
+            const wordCount = (text.match(/\b\w+\b/g) || []).length;
+            const spaceCount = (text.match(/ /g) || []).length;
+            const newlineCount = (text.match(/\n/g) || []).length;
+            const specialSymbolCount = (text.match(/[^a-zA-Z0-9\s]/g) || []).length;
+
+            const pronouns = ['he', 'she', 'it', 'they', 'we', 'you', 'i'];
+            const pronounCounts = {};
+            pronouns.forEach(pronoun => {
+                pronounCounts[pronoun] = (text.match(new RegExp(`\\b${pronoun}\\b`, 'gi')) || []).length;
+            });
+
+            const prepositions = ['in', 'on', 'at', 'by', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'over', 'under'];
+            const prepositionCounts = {};
+            prepositions.forEach(preposition => {
+                prepositionCounts[preposition] = (text.match(new RegExp(`\\b${preposition}\\b`, 'gi')) || []).length;
+            });
+
+            const articles = ['a', 'an'];
+            const articleCounts = {};
+            articles.forEach(article => {
+                articleCounts[article] = (text.match(new RegExp(`\\b${article}\\b`, 'gi')) || []).length;
+            });
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h3>Analysis Results:</h3>
+                <p>Letters: ${letterCount}</p>
+                <p>Words: ${wordCount}</p>
+                <p>Spaces: ${spaceCount}</p>
+                <p>Newlines: ${newlineCount}</p>
+                <p>Special Symbols: ${specialSymbolCount}</p>
+                <h4>Pronouns:</h4>
+                <pre>${JSON.stringify(pronounCounts, null, 2)}</pre>
+                <h4>Prepositions:</h4>
+                <pre>${JSON.stringify(prepositionCounts, null, 2)}</pre>
+                <h4>Indefinite Articles:</h4>
+                <pre>${JSON.stringify(articleCounts, null, 2)}</pre>
+            `;
+        }
+    </script>
+</body>

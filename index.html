@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Remove after ISS -->
+    <script src="ISS_Questions/clickEvent.js"></script>
 </head>
 <body>
     <header>
@@ -14,7 +16,8 @@
                 <li><a href="#tech-stack">Tech Stack</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="ISSassignment.html">ISS Text Input Question</a></li>
+                <!-- Remove after ISS -->
+                <li><a href="ISS_Questions/ISSassignment.html">ISS Text Input Question</a></li>
             </ul>
         </nav>
     </header>
@@ -22,12 +25,13 @@
     <section id="about">
         <img src="https://avatars.githubusercontent.com/u/63237038?v=4" alt="IrishBumfuzzle" id="profile-pic" width="200" height="200">
         <h2>About Me</h2>
-        <p>Hi! I am Ojas Kataria, a freshman  at IIIT-H, hailing from Faridabad, Haryana. I like to see memes, make stuff and look cool doing it :D</p>
+        <p>Hi! I am Ojas Kataria, a freshman  at IIIT-H. I completed my schooling from DPS, Faridabad. I like to see memes, make stuff and look cool doing it :D</p>
         <p>I am currently working as a developer in my university's tech team, <a href="https://clubs.iiit.ac.in/tech-team" target="_blank">SLC Tech Team!</a>
             <br>We maintain many college club websites and aid our IT office in whatever they need.
             <br>The website that I personally work on is <a href="https://clubs.iiit.ac.in/">our clubs showcase website</a> 
             and its <a href="https://github.com/Clubs-Council-IIITH">github repo</a>
         </p>
+        <a id="cv" href="Curriculum_Vitae.pdf">CV ↓</a>
     </section>
 
     <section id="tech-stack">
@@ -52,6 +56,10 @@
             <p>A VobSub converter to .srt files, using tesseract OCR. Written in Rust</p>
         </div>
         <div class="project">
+            <a href="https://github.com/StackUnderflowMegathon/Megathon24" target="_blank"><h3>Overtale</h3></a>
+            <p>A multiplayer game written in C for Megathon24</p>
+        </div>
+        <div class="project">
             <a href="https://github.com/IrishBumfuzzle/DisFin" target="_blank"><h3>DisFin</h3></a>
             <p>Discord rich presence for JellyFin, displays whatever you are watching currently. Written in Python</p>
         </div>
@@ -73,21 +81,5 @@
     <footer>
         <p>&copy; 2025 Ojas Kataria. All rights reserved.</p>
     </footer>
-
-    <script>
-        function logEvent(eventType, event) {
-            const timestamp = new Date().toISOString();
-            const eventObject = event.target.tagName.toLowerCase();
-            console.log(`${timestamp}, ${eventType}, ${eventObject}`);
-        }
-
-        document.addEventListener('click', (event) => {
-            logEvent('click', event);
-        });
-
-        window.addEventListener('load', () => {
-            logEvent('view', { target: document.body });
-        });
-    </script>
 </body>
 </html>

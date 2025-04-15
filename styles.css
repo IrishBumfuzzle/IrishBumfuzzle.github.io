@@ -31,7 +31,8 @@ nav ul {
 #name {
     margin: 1rem auto;
     padding-top: 1rem;
-    max-width: 800px;
+    text-align: center;
+    max-width: 42%;
 }
 
 nav ul li {
@@ -48,7 +49,7 @@ section {
     padding: 2rem;
     border-top: rgb(63, 63, 70, 0.4) 1px solid;
     margin: 1rem auto;
-    max-width: 800px;
+    max-width: 42%;
 }
 
 footer {

@@ -1,20 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Text Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-    <textarea id="textInput" rows="20" cols="100" placeholder="Enter text here (more than 10,000 words)..."></textarea>
-    <br>
-    <button onclick="analyzeText()">Analyze</button>
-    <div id="results">
-    </div>
+    <header>
+        <h1>Text Analysis</h1>
+    </header>
+    <main>
+        <section>
+            <label for="textInput" class="visually-hidden">Enter your text for analysis:</label>
+            <textarea id="textInput" rows="20" cols="100" placeholder="Enter text here"></textarea>
+            <br>
+            <button onclick="analyzeText()">Analyze</button>
+        </section>
+        <h2>Analysis Results</h2>
+        <section id="results" style="max-width: 600px; margin: auto;">
+        </section>
+    </main>
     <script>
         function analyzeText() {
             const text = document.getElementById('textInput').value;
 
             const letterCount = (text.match(/[a-zA-Z]/g) || []).length;
-            const wordCount = (text.match(/\b\w+\b/g) || []).length;
+            const wordCount = (text.match(/\b[a-zA-Z]+\b/g) || []).length;
             const spaceCount = (text.match(/ /g) || []).length;
             const newlineCount = (text.match(/\n/g) || []).length;
             const specialSymbolCount = (text.match(/[^a-zA-Z0-9\s]/g) || []).length;
 
-            const pronouns = ['he', 'she', 'it', 'they', 'we', 'you', 'i'];
+            const pronouns = ['he', 'she', 'it', 'they', 'we', 'you', 'i', 'who', 'what', 'which', 'that', 'this', 'these', 'those', 'me', 'him', 'her', 'us', 'them'];
             const pronounCounts = {};
             pronouns.forEach(pronoun => {
                 pronounCounts[pronoun] = (text.match(new RegExp(`\\b${pronoun}\\b`, 'gi')) || []).length;
@@ -34,19 +49,24 @@
 
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = `
-                <h3>Analysis Results:</h3>
-                <p>Letters: ${letterCount}</p>
-                <p>Words: ${wordCount}</p>
-                <p>Spaces: ${spaceCount}</p>
-                <p>Newlines: ${newlineCount}</p>
-                <p>Special Symbols: ${specialSymbolCount}</p>
-                <h4>Pronouns:</h4>
-                <pre>${JSON.stringify(pronounCounts, null, 2)}</pre>
-                <h4>Prepositions:</h4>
-                <pre>${JSON.stringify(prepositionCounts, null, 2)}</pre>
-                <h4>Indefinite Articles:</h4>
-                <pre>${JSON.stringify(articleCounts, null, 2)}</pre>
+                <p><strong>Letters:</strong> ${letterCount}</p>
+                <p><strong>Words:</strong> ${wordCount}</p>
+                <p><strong>Spaces:</strong> ${spaceCount}</p>
+                <p><strong>Newlines:</strong> ${newlineCount}</p>
+                <p><strong>Special Symbols:</strong> ${specialSymbolCount}</p>
+                ${generateNonZeroCounts('Pronouns', pronounCounts)}
+                ${generateNonZeroCounts('Prepositions', prepositionCounts)}
+                ${generateNonZeroCounts('Indefinite Articles', articleCounts)}
             `;
+        }
+
+        function generateNonZeroCounts(title, counts) {
+            const nonZeroCounts = Object.entries(counts)
+                .filter(([key, value]) => value > 0)
+                .map(([key, value]) => `<li>${key}: ${value}</li>`)
+                .join('');
+            return nonZeroCounts ? `<h4>${title}:</h4><ul>${nonZeroCounts}</ul>` : '';
         }
     </script>
 </body>
+</html>
